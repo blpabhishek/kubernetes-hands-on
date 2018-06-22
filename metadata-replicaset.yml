@@ -1,0 +1,38 @@
+---
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: metadata-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      env: dev
+  template:
+    metadata:
+      labels:
+        env: dev
+    spec:
+      containers:
+        - name: metadata-service
+          image: metadata-service:1.0
+          ports:
+          - containerPort: 8080
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: metadata-service
+spec:
+  selector:
+    env: dev
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+
+
+
