@@ -16,9 +16,16 @@ spec:
     spec:
       containers:
         - name: metadata-service
-          image: metadata-service:6.0
+          image: metadata-service:7.0
           ports:
           - containerPort: 8080
+          env:
+          - name: APP_NAME
+            valueFrom: 
+              configMapKeyRef: 
+                name: special-config
+                key: name
+
 
 ---
 apiVersion: v1
